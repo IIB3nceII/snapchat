@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux";
 import { setCameraImage } from "./store/cameraSlice";
 import { useHistory } from "react-router-dom";
 
+import { useSelector } from 'react-redux';
+import { selectCameraImage } from './store/cameraSlice';
+
 const videoConstraints = {
   width: 250,
   height: 400,
@@ -13,6 +16,7 @@ const videoConstraints = {
 };
 
 function WebcamCapture() {
+  const image =useSelector(selectCameraImage);
   const webcamRef = useRef<any>(null);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -20,7 +24,7 @@ function WebcamCapture() {
   const capture = useCallback(() => {
     if (webcamRef && webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot();
-      console.log(imageSrc);
+      console.log(imageSrc, typeof(imageSrc));
       dispatch(setCameraImage(imageSrc));
       history.push("/preview");
     }
@@ -41,6 +45,8 @@ function WebcamCapture() {
         onClick={capture}
         fontSize="large"
       />
+      <div style={{marginLeft:"70%"}}>
+      </div>
     </div>
   );
 }

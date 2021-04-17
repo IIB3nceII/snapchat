@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-interface CameraState {
-    value: any;
+export interface CameraState {
+    cameraImage: string;
 }
 
 const initialState: CameraState = {
-  value: null,
+  cameraImage: "",
 };
 
 export const cameraSlice = createSlice({
@@ -14,16 +14,16 @@ export const cameraSlice = createSlice({
   initialState,
   reducers: {
     setCameraImage: (state, action: PayloadAction<string>) => {
-      state.value =action.payload;
+      state.cameraImage = action.payload;
     },
     resetCameraImage: (state) =>{
-        state.value=null;
+        state.cameraImage="";
     }
   },
 });
 
 export const { setCameraImage, resetCameraImage } = cameraSlice.actions;
 
-export const selectCameraImage = (state: RootState) => state.camera.value;
+export const selectCameraImage = (state: RootState) => state.camera.cameraImage;
 
 export default cameraSlice.reducer;
